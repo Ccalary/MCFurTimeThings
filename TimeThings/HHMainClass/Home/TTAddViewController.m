@@ -23,6 +23,7 @@
 @property (strong, nonatomic) CNPPopupController *popController;
 @property (assign, nonatomic) int btnTag;
 @property (strong, nonatomic) NSString *dateStr, *timeStr;
+@property (assign, nonatomic) double timestamp;
 @end
 
 @implementation TTAddViewController
@@ -45,10 +46,11 @@
     if (!_dateView){
         _dateView  = [[TTDatePicker alloc] initWithFrame:CGRectMake(0, TTScreenHeight -  TTTopFullHeight, TTScreenWidth, 200) andType:1];
         __weak typeof (self) weakSelf = self;
-        _dateView.block = ^(NSString *dateStr, NSString *timeStr) {
+        _dateView.block = ^(NSString *dateStr, NSString *timeStr, double timestamp) {
             if (dateStr){
                 weakSelf.dateStr = dateStr;
                 weakSelf.timeStr = timeStr;
+                weakSelf.timestamp = timestamp;
                 [weakSelf.timeBtn setTitle:[NSString stringWithFormat:@"%@ %@",dateStr,timeStr] forState:UIControlStateNormal];
             }
             [weakSelf.popController dismissPopupControllerAnimated:YES];
@@ -87,11 +89,13 @@
     model.things = self.ThingsTF.text;
     model.colorType = [NSNumber numberWithInt:self.btnTag];
     if (self.dateStr){
-       model.dateStr = self.dateStr;
+        model.dateStr = self.dateStr;
+        model.timestamp =  [NSString stringWithFormat:@"%f",self.timestamp];
     }else {
         NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
         [formatter setDateFormat:@"YYYY.MM.dd"];
         model.dateStr = [formatter stringFromDate:[NSDate date]];
+        model.timestamp = [NSString stringWithFormat:@"%f",[[NSDate date] timeIntervalSince1970]];
     }
     if (self.timeStr){
         model.timeStr = self.timeStr;
@@ -101,5 +105,9 @@
         model.timeStr = [formatter stringFromDate:[NSDate date]];
     }
     [[DataBase sharedDataBase] addListModel:model];
+    [self.navigationController popViewControllerAnimated:YES];
+    if (self.block){
+        self.block();
+    }
 }
 @end

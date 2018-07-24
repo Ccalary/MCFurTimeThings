@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TTContactViewController">
+            <connections>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dpj-3l-PMh">
+                    <rect key="frame" x="18" y="50" width="108" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="21" id="TAA-va-iem"/>
+                        <constraint firstAttribute="width" constant="108" id="Umc-DZ-rKz"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="（Click to copy）" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GXE-r5-VmV">
+                    <rect key="frame" x="129" y="50" width="134" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="134" id="JIK-tk-NAO"/>
+                        <constraint firstAttribute="height" constant="21" id="hgG-AW-8vh"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kha-Ks-Nd3">
+                    <rect key="frame" x="15" y="91" width="242" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="242" id="EKN-TO-QUN"/>
+                        <constraint firstAttribute="height" constant="40" id="qm6-85-jdw"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                    <state key="normal" title="chh13773047067@gmail.com"/>
+                    <connections>
+                        <action selector="copyAction:" destination="-1" eventType="touchUpInside" id="Ioa-Ja-UbR"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="Kha-Ks-Nd3" firstAttribute="top" secondItem="dpj-3l-PMh" secondAttribute="bottom" constant="20" id="EvT-Yt-rDe"/>
+                <constraint firstItem="GXE-r5-VmV" firstAttribute="centerY" secondItem="dpj-3l-PMh" secondAttribute="centerY" id="GqP-bl-raW"/>
+                <constraint firstItem="dpj-3l-PMh" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="30" id="aBc-0f-OwK"/>
+                <constraint firstItem="dpj-3l-PMh" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="18" id="hz4-LK-m4Z"/>
+                <constraint firstItem="Kha-Ks-Nd3" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="15" id="vfE-oa-XY2"/>
+                <constraint firstItem="GXE-r5-VmV" firstAttribute="leading" secondItem="dpj-3l-PMh" secondAttribute="trailing" constant="3" id="ynm-fR-B3J"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
+        </view>
+    </objects>
+</document>

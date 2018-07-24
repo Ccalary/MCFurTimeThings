@@ -12,6 +12,8 @@
 #import "DataBase.h"
 #import "TTDatePicker.h"
 #import "CNPPopupController.h"
+#import "TTNothingView.h"
+#import "TTShowViewController.h"
 
 @interface TTHomeViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
@@ -21,6 +23,7 @@
 @property (nonatomic, strong) TTDatePicker *dateView;
 @property (nonatomic, strong) NSString *dateStr;
 @property (nonatomic, strong) UILabel *headerLabel;
+@property (nonatomic, strong) TTNothingView *nothingView;
 @end
 
 @implementation TTHomeViewController
@@ -36,6 +39,16 @@
     
 }
 
+- (TTNothingView *)nothingView {
+    if (!_nothingView){
+        __weak typeof (self) weakSelf = self;
+        _nothingView = [[TTNothingView alloc] initWithFrame:CGRectMake(0, 0, TTScreenWidth, TTScreenHeight - TTTopFullHeight - TTTabBarHeight) addAction:^{
+            [weakSelf addAction];
+        }];
+    }
+    return _nothingView;
+}
+
 - (UILabel *)headerLabel {
     if (!_headerLabel){
         _headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, TTScreenWidth, 40)];
@@ -49,12 +62,12 @@
     if (!_dateView){
         _dateView  = [[TTDatePicker alloc] initWithFrame:CGRectMake(0, TTScreenHeight -  TTTopFullHeight, TTScreenWidth, 200) andType:2];
         __weak typeof (self) weakSelf = self;
-        _dateView.block = ^(NSString *dateStr, NSString *timeStr) {
+        _dateView.block = ^(NSString *dateStr, NSString *timeStr, double timeStamp) {
             if (dateStr){
                 weakSelf.dataArray = [[DataBase sharedDataBase] getListModelWithDate:dateStr];
                 weakSelf.tableView.tableHeaderView = weakSelf.headerLabel;
                 weakSelf.headerLabel.text = dateStr;
-                [weakSelf.tableView reloadData];
+                [weakSelf refreshView];
             }
             [weakSelf.popController dismissPopupControllerAnimated:YES];
         };
@@ -111,17 +124,56 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-   
+    TTShowViewController *showVC = [[TTShowViewController alloc] init];
+    showVC.model = self.dataArray[indexPath.row];
+    __weak typeof (self) weakSelf = self;
+    showVC.updateblock = ^{
+        [LCProgressHUD showSuccess:@"update success!"];
+        [weakSelf requestData];
+    };
+    showVC.deleteblock = ^{
+        [LCProgressHUD showSuccess:@"delete success!"];
+        [weakSelf requestData];
+    };
+    [self.navigationController pushViewController:showVC animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 80;
 }
 
+//走了左滑删除
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (editingStyle == UITableViewCellEditingStyleDelete){//删除操作
+        TTListModel *model = self.dataArray[indexPath.row];
+        [[DataBase sharedDataBase] deleteModel:model];
+        [self.dataArray removeObjectAtIndex:indexPath.row];
+        //删除某行并配有动画
+        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationMiddle];
+    }
+}
+
+//更改左滑后的字体显示
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath{
+    //如果系统是英文，会显示delete,这里可以改成自己想显示的内容
+    return @"delete";
+}
+
 - (void)requestData {
     self.dataArray = [[DataBase sharedDataBase] getAllModel];
-    [self.tableView reloadData];
+    [self refreshView];
     self.tableView.tableHeaderView = [[UIView alloc] init];
+}
+
+- (void)refreshView {
+    if (self.dataArray.count == 0){
+        self.addBtn.hidden = YES;
+        [self.view addSubview:self.nothingView];
+    }else {
+        self.addBtn.hidden = NO;
+        [self.nothingView removeFromSuperview];
+    }
+    [self.tableView reloadData];
 }
 
 - (void)leftBtnAction {
@@ -137,6 +189,11 @@
 
 - (void)addAction {
     TTAddViewController *addVC = [[TTAddViewController alloc] init];
+    __weak typeof (self) weakSelf = self;
+    addVC.block = ^{
+        [LCProgressHUD showSuccess:@"Add success!"];
+        [weakSelf requestData];
+    };
     [self.navigationController pushViewController:addVC animated:YES];
 }
 @end

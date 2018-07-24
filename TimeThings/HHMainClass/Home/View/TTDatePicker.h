@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-typedef void(^sureBlock)(NSString *dateStr, NSString *timeStr);
+typedef void(^sureBlock)(NSString *dateStr, NSString *timeStr, double timestamp);
 typedef void(^cancelBlock)(void);
 @interface TTDatePicker : UIView
 @property (nonatomic, copy) sureBlock block;

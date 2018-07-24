@@ -86,7 +86,7 @@ static DataBase *_DBCtl = nil;
     
     [_db open];
     
-    NSString *recordSql = @"CREATE TABLE 'listModel' ('id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 'r_id' VARCHAR(255),'title' VARCHAR(255), 'things' VARCHAR(255), 'colorType' VARCHAR(255), 'dateStr' VARCHAR(255),'timeStr' VARCHAR(255))";
+    NSString *recordSql = @"CREATE TABLE 'listModel' ('id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 'r_id' VARCHAR(255),'title' VARCHAR(255), 'things' VARCHAR(255), 'colorType' VARCHAR(255), 'dateStr' VARCHAR(255),'timeStr' VARCHAR(255),'timestamp' VARCHAR(255))";
     
     [_db executeUpdate:recordSql];
     
@@ -98,7 +98,7 @@ static DataBase *_DBCtl = nil;
     
     NSNumber *maxID = @(0);
     
-    FMResultSet *res = [_db executeQuery:@"SELECT * FROM listModel "];
+    FMResultSet *res = [_db executeQuery:@"SELECT * FROM listModel"];
     //获取数据库中最大的ID
     while ([res next]) {
         if ([maxID integerValue] < [[res stringForColumn:@"r_id"] integerValue]) {
@@ -107,8 +107,8 @@ static DataBase *_DBCtl = nil;
     }
     maxID = @([maxID integerValue] + 1);
     
-    [_db executeUpdate:@"INSERT INTO listModel (r_id,title,things,colorType,dateStr,timeStr) VALUES (?,?,?,?,?,?)",
-     maxID,listModel.title,listModel.things,listModel.colorType,listModel.dateStr,listModel.timeStr];
+    [_db executeUpdate:@"INSERT INTO listModel (r_id,title,things,colorType,dateStr,timeStr,timestamp) VALUES (?,?,?,?,?,?,?)",
+     maxID,listModel.title,listModel.things,listModel.colorType,listModel.dateStr,listModel.timeStr,listModel.timestamp];
     
     [_db close];
 }
@@ -118,7 +118,7 @@ static DataBase *_DBCtl = nil;
     
     NSMutableArray *dataArray = [[NSMutableArray alloc] init];
     
-    FMResultSet *res = [_db executeQuery:@"SELECT *,dateStr FROM listModel"];//ORDER BY dateStr DESC
+    FMResultSet *res = [_db executeQuery:@"SELECT * FROM listModel ORDER BY timestamp DESC"];
     
     while ([res next]) {
         TTListModel *model = [[TTListModel alloc] init];
@@ -128,6 +128,7 @@ static DataBase *_DBCtl = nil;
         model.colorType = @([[res stringForColumn:@"colorType"] integerValue]);
         model.dateStr = [res stringForColumn:@"dateStr"];
         model.timeStr = [res stringForColumn:@"timeStr"];
+        model.timestamp = [res stringForColumn:@"timestamp"];
         [dataArray addObject:model];
     }
     [_db close];
@@ -142,12 +143,23 @@ static DataBase *_DBCtl = nil;
     [_db close];
 }
 
+- (void)updateModel:(TTListModel *)model {
+    [_db open];
+    NSString *sql = @"UPDATE listModel SET title = ? , things = ? WHERE r_id = ?";
+    BOOL res = [_db executeUpdate:sql,model.title,model.things,model.r_id];
+    if (!res) {
+        NSLog(@"数据修改失败");
+    } else {
+        NSLog(@"数据修改成功");
+    }
+    [_db close];
+}
+
 - (NSMutableArray *)getListModelWithDate:(NSString *)dateStr{
     [_db open];
     
     NSMutableArray *dataArray = [[NSMutableArray alloc] init];
     FMResultSet *res;
-    NSString *sql=[NSString stringWithFormat:@"SELECT * FROM listModel WHERE dateStr = %@",dateStr];
     res = [_db executeQuery:@"SELECT * FROM listModel WHERE dateStr = ?",dateStr];
     
     while ([res next]) {
@@ -158,6 +170,7 @@ static DataBase *_DBCtl = nil;
         model.colorType = @([[res stringForColumn:@"colorType"] integerValue]);
         model.dateStr = [res stringForColumn:@"dateStr"];
         model.timeStr = [res stringForColumn:@"timeStr"];
+        model.timestamp = [res stringForColumn:@"timestamp"];
         [dataArray addObject:model];
     }
     [_db close];

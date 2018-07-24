@@ -20,6 +20,7 @@
 - (void)addListModel:(TTListModel *)listModel;
 - (void)deleteModel:(TTListModel *)model;
 - (NSMutableArray *)getAllModel;
+- (void)updateModel:(TTListModel *)model;
 // 日期种类查找
 - (NSMutableArray *)getListModelWithDate:(NSString *)dateStr;
 @end

@@ -10,6 +10,7 @@
 @interface TTDatePicker()
 @property (nonatomic, strong) NSString *dateStr, *timeStr;
 @property (nonatomic, assign) int type;
+@property (nonatomic, assign) double timestamp;
 @end
 @implementation TTDatePicker
 
@@ -65,7 +66,10 @@
     NSDateFormatter *timeFormatter = [[NSDateFormatter alloc] init];
     [timeFormatter setDateFormat:@"HH:mm:ss"];
     _timeStr = [timeFormatter stringFromDate:picker.date];
+    self.timestamp = [picker.date timeIntervalSince1970];
 }
+
+
 
 - (void)cancelAction {
     if (self.cancelBlock){
@@ -74,8 +78,17 @@
 }
 
 - (void)buttonAction:(UIButton *)button {
+    if (self.dateStr.length == 0){
+        NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"YYYY.MM.dd"];
+        _dateStr = [formatter stringFromDate:[NSDate date]];
+        NSDateFormatter *timeFormatter = [[NSDateFormatter alloc] init];
+        [timeFormatter setDateFormat:@"HH:mm:ss"];
+        _timeStr = [timeFormatter stringFromDate:[NSDate date]];
+        self.timestamp = [[NSDate date] timeIntervalSince1970];
+    }
     if (self.block){
-        self.block(self.dateStr,self.timeStr);
+        self.block(self.dateStr,self.timeStr,self.timestamp);
     }
 }
 @end

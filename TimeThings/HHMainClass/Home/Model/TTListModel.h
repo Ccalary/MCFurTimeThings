@@ -16,5 +16,5 @@
 @property (nonatomic, strong) UIColor *color;
 @property (nonatomic, copy) NSString *dateStr;
 @property (nonatomic, copy) NSString *timeStr;
-@property (nonatomic, strong) NSDate *date;
+@property (nonatomic, strong) NSString *timestamp;
 @end

@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+typedef void(^finishBlock)();
 @interface TTAddViewController : UIViewController
-
+@property (nonatomic, copy) finishBlock block;
 @end
