@@ -52,17 +52,49 @@
                         <action selector="copyAction:" destination="-1" eventType="touchUpInside" id="Ioa-Ja-UbR"/>
                     </connections>
                 </button>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5ZF-rg-xFW">
+                    <rect key="frame" x="18" y="171" width="312" height="30"/>
+                    <state key="normal" title="Button"/>
+                </button>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SkO-Gb-esn">
+                    <rect key="frame" x="57" y="216" width="312" height="30"/>
+                    <state key="normal" title="Button"/>
+                </button>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ByK-Xr-J3X">
+                    <rect key="frame" x="-6" y="285" width="312" height="30"/>
+                    <state key="normal" title="Button"/>
+                </button>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nEW-tS-1VO">
+                    <rect key="frame" x="0.0" y="345" width="312" height="30"/>
+                    <state key="normal" title="Button"/>
+                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="SkO-Gb-esn" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="57" id="9js-ge-Wnk"/>
                 <constraint firstItem="Kha-Ks-Nd3" firstAttribute="top" secondItem="dpj-3l-PMh" secondAttribute="bottom" constant="20" id="EvT-Yt-rDe"/>
                 <constraint firstItem="GXE-r5-VmV" firstAttribute="centerY" secondItem="dpj-3l-PMh" secondAttribute="centerY" id="GqP-bl-raW"/>
+                <constraint firstItem="5ZF-rg-xFW" firstAttribute="top" secondItem="Kha-Ks-Nd3" secondAttribute="bottom" constant="40" id="Hmd-fk-48M"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="nEW-tS-1VO" secondAttribute="trailing" constant="63" id="JYP-tO-osp"/>
+                <constraint firstItem="SkO-Gb-esn" firstAttribute="top" secondItem="5ZF-rg-xFW" secondAttribute="bottom" constant="15" id="N1k-nE-v5k"/>
+                <constraint firstItem="nEW-tS-1VO" firstAttribute="top" secondItem="ByK-Xr-J3X" secondAttribute="bottom" constant="30" id="Zcl-Dv-Ijf"/>
                 <constraint firstItem="dpj-3l-PMh" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="30" id="aBc-0f-OwK"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="ByK-Xr-J3X" secondAttribute="trailing" constant="69" id="civ-Og-1Is"/>
+                <constraint firstItem="5ZF-rg-xFW" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="18" id="ckL-AB-WNT"/>
+                <constraint firstItem="ByK-Xr-J3X" firstAttribute="top" secondItem="SkO-Gb-esn" secondAttribute="bottom" constant="39" id="d6d-0p-WQm"/>
+                <constraint firstItem="nEW-tS-1VO" firstAttribute="top" secondItem="ByK-Xr-J3X" secondAttribute="bottom" constant="30" id="dJD-Ps-HzH"/>
                 <constraint firstItem="dpj-3l-PMh" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="18" id="hz4-LK-m4Z"/>
+                <constraint firstItem="nEW-tS-1VO" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="kNE-64-fj9"/>
+                <constraint firstItem="ByK-Xr-J3X" firstAttribute="top" secondItem="SkO-Gb-esn" secondAttribute="bottom" constant="39" id="lEU-4v-7iM"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="5ZF-rg-xFW" secondAttribute="trailing" constant="45" id="oZ0-UW-V0S"/>
+                <constraint firstItem="SkO-Gb-esn" firstAttribute="top" secondItem="5ZF-rg-xFW" secondAttribute="bottom" constant="15" id="pFf-Hi-Rcn"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="SkO-Gb-esn" secondAttribute="trailing" constant="6" id="rf1-Sl-WhO"/>
                 <constraint firstItem="Kha-Ks-Nd3" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="15" id="vfE-oa-XY2"/>
+                <constraint firstItem="ByK-Xr-J3X" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="-6" id="wFB-ZO-EvP"/>
                 <constraint firstItem="GXE-r5-VmV" firstAttribute="leading" secondItem="dpj-3l-PMh" secondAttribute="trailing" constant="3" id="ynm-fR-B3J"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
+            <point key="canvasLocation" x="33.5" y="53.5"/>
         </view>
     </objects>
 </document>

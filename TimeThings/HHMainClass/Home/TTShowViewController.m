@@ -7,7 +7,7 @@
 //
 
 #import "TTShowViewController.h"
-#import "DataBase.h"
+#import "LEIDataBase.h"
 
 @interface TTShowViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
@@ -49,14 +49,14 @@
     if (_thingsTF.text.length > 0){
         self.model.things = _thingsTF.text;
     }
-    [[DataBase sharedDataBase] updateModel:self.model];
+    [[LEIDataBase sharedDataBase] updateModel:self.model];
     [self.navigationController popViewControllerAnimated:YES];
     if (self.updateblock){
         self.updateblock();
     }
 }
 - (IBAction)deleteAction:(UIButton *)sender {
-    [[DataBase sharedDataBase] deleteModel:self.model];
+    [[LEIDataBase sharedDataBase] deleteModel:self.model];
     [self.navigationController popViewControllerAnimated:YES];
     if (self.deleteblock){
         self.deleteblock();

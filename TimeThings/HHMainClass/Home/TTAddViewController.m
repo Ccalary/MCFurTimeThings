@@ -7,11 +7,11 @@
 //
 
 #import "TTAddViewController.h"
-#import "TTDatePicker.h"
+#import "LeiDatePicker.h"
 #import "CNPPopupController.h"
-#import "TTClock.h"
+#import "LeiClock.h"
 #import "TTListModel.h"
-#import "DataBase.h"
+#import "LEIDataBase.h"
 
 @interface TTAddViewController ()
 @property (weak, nonatomic) IBOutlet UIView *topView;
@@ -19,7 +19,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *ThingsTF;
 @property (weak, nonatomic) IBOutlet UIButton *colorBtn;
 @property (weak, nonatomic) IBOutlet UIButton *timeBtn;
-@property (strong, nonatomic) TTDatePicker *dateView;
+@property (strong, nonatomic) LeiDatePicker *dateView;
 @property (strong, nonatomic) CNPPopupController *popController;
 @property (assign, nonatomic) int btnTag;
 @property (strong, nonatomic) NSString *dateStr, *timeStr;
@@ -33,7 +33,7 @@
     self.navigationItem.title = @"Add";
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Finish" style:UIBarButtonItemStylePlain target:self action:@selector(finishAction:)];
     
-    TTClock *clockView = [[TTClock alloc] initWithFrame:CGRectMake(0, 0, TTScreenWidth, 150)];
+    LeiClock *clockView = [[LeiClock alloc] initWithFrame:CGRectMake(0, 0, TTScreenWidth, 150)];
     clockView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:clockView];
 }
@@ -42,9 +42,9 @@
     [super didReceiveMemoryWarning];
 }
 
-- (TTDatePicker *)dateView {
+- (LeiDatePicker *)dateView {
     if (!_dateView){
-        _dateView  = [[TTDatePicker alloc] initWithFrame:CGRectMake(0, TTScreenHeight -  TTTopFullHeight, TTScreenWidth, 200) andType:1];
+        _dateView  = [[LeiDatePicker alloc] initWithFrame:CGRectMake(0, TTScreenHeight -  TTTopFullHeight, TTScreenWidth, 200) andType:1];
         __weak typeof (self) weakSelf = self;
         _dateView.block = ^(NSString *dateStr, NSString *timeStr, double timestamp) {
             if (dateStr){
@@ -77,11 +77,11 @@
 
 - (IBAction)finishAction:(UIButton *)sender {
     if (self.titleTF.text.length <= 0){
-        [LCProgressHUD showFailure:@"please input title"];
+        [SVProgressHUD showErrorWithStatus:@"please input title"];
         return;
     }
     if (self.ThingsTF.text.length <= 0){
-        [LCProgressHUD showFailure:@"please input things"];
+        [SVProgressHUD showErrorWithStatus:@"please input things"];
         return;
     }
     TTListModel *model = [[TTListModel alloc] init];
@@ -104,7 +104,7 @@
         [formatter setDateFormat:@"HH.mm.ss"];
         model.timeStr = [formatter stringFromDate:[NSDate date]];
     }
-    [[DataBase sharedDataBase] addListModel:model];
+    [[LEIDataBase sharedDataBase] addListModel:model];
     [self.navigationController popViewControllerAnimated:YES];
     if (self.block){
         self.block();

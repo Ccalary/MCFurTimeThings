@@ -3,11 +3,15 @@ platform :ios, '9.0'
 use_frameworks!
 
 
-target ‘TimeThings’ do
-pod 'MBProgressHUD', '~> 1.0.0'
+target ‘TimeNote’ do
 pod 'Masonry'
 pod 'FDFullscreenPopGesture', '1.1'
 pod 'FMDB'
 pod 'IQKeyboardManager'
+pod 'MagicalRecord'
+pod 'SVProgressHUD'
+pod 'KVOController'
+pod 'SDCycleScrollView', '~> 1.65'
+pod 'AFNetworking', '~> 3.0'
 
 end
